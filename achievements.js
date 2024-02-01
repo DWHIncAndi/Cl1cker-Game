@@ -34,7 +34,7 @@ function checkAchievements() {
     }
 
     if (rawPoints >= 400000000000000 && !achievementsUnlocked.includes('•Richest Person!')) {
-        const achievement = '•Richest Person!';
+        const achievement = 'Richest Person!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         alert(`Achievement Unlocked: ${achievement}`);
