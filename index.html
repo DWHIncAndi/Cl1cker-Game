@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1><u>Clicker</u></h1>
+<div class="stats-container">
+    <h2><u>Stats</u></h2>
+    <p>•Click Power: <span id="powerCounter"><br>50.00 ppc</span></p>
+    <p>•Luck: <span id="luckCounter"><br>0 lvl</span></p>
+    <p>•Bonus: <span id="bonusCounter"><br>0.00%</span></p>
+    <p>•Auto Speed: <span id="autoSpeed"><br>1000 ms</span></p>
+    <!-- Weitere Statistiken hier hinzufügen -->
+</div>
+
+
+
+<div class="clicker-container">
+    <p>Points: <span id="points">0.00</span></p>
+    <button id="clickBtn">Click Me!</button>
+    <button id="autoClickBtn">Auto Clicker (Cost: 50.00k points)</button>
+</div>
+
+
+
+<div class="upgrade-container">
+    <h2><u>Upgrades</u></h2>
+    <button id="upgradeBtn"><span style="color: #e06363">POWER</span> Upgrade (Cost: 300.00 points), (Level: <span id="upgradeLevel">0</span>/250)</button>
+    <button id="bonusUpgradeBtn"><span style="color: #E06363FF">BONUS</span> Upgrade (Cost: 4.00k points), (Level: <span id="bonusLevel">0</span>/50)</button>
+    <button id="autoUpgradeBtn"><span style="color: #E06363FF">AUTO SPEED</span> Upgrade (Cost: 100.00k points), (Level: <span id="autoClickerLevel">0</span>/18)</button>
+    <button id="luckUpgradeBtn"><span style="color: #E06363FF">LUCK</span> Upgrade (Cost: 5.00k points), (Level: <span id="luckLevel">0</span>/40)</button>
+</div>
+
+
+
+<div class="achievements-container">
+    <h2><u>Achievements</u></h2>
+    <p id="achievement"></p>
+</div>
+
+
+<script src="clicker.js"></script>
+<script src="achievements.js"></script>
+<script src="upgrades.js"></script>
+</body>
+</html>
