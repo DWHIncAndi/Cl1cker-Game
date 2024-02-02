@@ -108,7 +108,7 @@ button:hover {
 
 #upgradeBtn,
 #bonusUpgradeBtn,
-#luckUpgradeBtn,
+#criticalUpgradeBtn,
 #autoUpgradeBtn {
     background-color: #3498db;
     color: #fff;
@@ -125,7 +125,7 @@ button:hover {
 #autoClickBtn:hover,
 #upgradeBtn:hover,
 #bonusUpgradeBtn:hover,
-#luckUpgradeBtn:hover,
+#criticalUpgradeBtn:hover,
 #autoUpgradeBtn:hover {
     background-color: #0f77bb;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Erhöht den Schatten bei Hover */
@@ -133,8 +133,10 @@ button:hover {
 }
 
 #powerCounter,
-#luckCounter,
+#criticalCounter,
 #bonusCounter,
+#totalclickCounter,
+#totalpointsCounter,
 #autoCounter,
 #autoSpeed {
     font-size: 20px;

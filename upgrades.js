@@ -9,10 +9,9 @@ let autoClickerLevel = 0
 let autoUpgradeCost = 100000;
 let bonusUpgradeCost = 4000;
 let bonusLevel = 0;
-let bonusMultiplier = 0.00
-let luckUpgradeCost = 5000
-let luckLVL = 0
-let clickBonus = Math.floor(Math.random() * (200 - 50 + 1)) + 50;
+let bonusMultiplier = 0.00;
+let criticalUpgradeCost = 5000;
+let criticalLevel = 0;
 
 
 autoClickBtn.addEventListener('click', () => {
@@ -80,29 +79,16 @@ bonusUpgradeBtn.addEventListener('click', () => {
     }
 });
 
-function applyBonus() {
-    // Implementiere hier die Logik für den Bonus basierend auf bonusLevel und powerCounter
-    bonusMultiplier = 1 + bonusLevel * 0.1; // Beispiel: Jedes Upgrade erhöht den Bonus um 10%
-    powerCounter *= bonusMultiplier;
-    // Weitere Bonus-Logik hier hinzufügen, je nach den Anforderungen deines Spiels
-}
-
-luckUpgradeBtn.addEventListener('click', () => {
-    if (points >= luckUpgradeCost && luckLVL < 40) {
-        points -= luckUpgradeCost;
-        luckLVL++;
-        applyLuck();
-        luckUpgradeCost *= 1.5; // Kosten für das nächste Upgrade erhöhen
+criticalUpgradeBtn.addEventListener('click', () => {
+    if (points >= criticalUpgradeCost && criticalLevel < 40) {
+        points -= criticalUpgradeCost;
+        criticalLevel++;
+        criticalUpgradeCost *= 1.5; // Kosten für das nächste Upgrade erhöhen
+        criticalFactor *= 1.2; // Faktor exponentiell erhöhen
         updateDisplay();
-    } else if (luckLVL >= 40) {
-        alert('You have reached the maximum level for this upgrade!');
+    } else if (criticalLevel >= 40) {
+        alert('You have reached the maximum level for Critical Hit upgrade!');
     } else {
-        alert('Not enough points to upgrade Luck!');
+        alert('Not enough points to upgrade Critical Hit!');
     }
 });
-
-function applyLuck() {
-    points += clickBonus * 10 * luckLVL / 100; // Bonus basierend auf Luck-Level
-    alert(`You just became a Luck Bonus of ${clickBonus}`)
-    // Weitere Luck-Logik hier hinzufügen, je nach den Anforderungen deines Spiels
-}

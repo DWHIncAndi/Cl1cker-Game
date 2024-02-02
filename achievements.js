@@ -27,14 +27,14 @@ function checkAchievements() {
     }
 
     if (rawPoints >= 100000000 && !achievementsUnlocked.includes('•Multi Millionaire!')) {
-        const achievement = '•Multi Million!';
+        const achievement = '•Multi Millionaire!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         alert(`Achievement Unlocked: ${achievement}`);
     }
 
     if (rawPoints >= 400000000000000 && !achievementsUnlocked.includes('•Richest Person!')) {
-        const achievement = 'Richest Person!';
+        const achievement = '•Richest Person!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         alert(`Achievement Unlocked: ${achievement}`);
