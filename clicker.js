@@ -1,11 +1,17 @@
-let points = 0;
-let powerCounter = 50;
-let clickCounter = 0;
-let totalClicks = 0;
-let luckFactor = 1;
-let totalPoints = 0
-let criticalFactor = 1;
-let critClicks
+let gameData = {
+    points: 0,
+    powerCounter: 50,
+    clickCounter: 0,
+    totalClicks: 0,
+    luckFactor: 1,
+    totalPoints: 0,
+    criticalFactor: 1,
+    critClicks: 0,
+    rarityFactorCrit: 30,
+    rarityFactorLuck: 30,
+    minClicks: 1000,
+    // Weitere Spielstandsdaten hier hinzufügen
+};
 
 const pointsDisplay = document.getElementById('points');
 const totalclicksDisplay = document.getElementById('totalclickCounter');
@@ -19,25 +25,111 @@ const autoClickBtn = document.getElementById('autoClickBtn');
 const bonusUpgradeBtn = document.getElementById('bonusUpgradeBtn');
 const criticalUpgradeBtn = document.getElementById('criticalUpgradeBtn');
 const critDisplay = document.getElementById('criticalCounter')
+const critFactorDisplay = document.getElementById('criticalFactor')
 
+document.addEventListener('DOMContentLoaded', () => {
+    // Stelle sicher, dass das Spiel geladen wird, nachdem das DOM vollständig geladen wurde
+    loadGame();
+    // Füge weitere Initialisierungen oder Funktionen hinzu, die nach dem Laden des Spiels ausgeführt werden sollen
+});
+
+
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.style.display = 'block';
+
+    // Verstecke die Benachrichtigung nach 3 Sekunden
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 3000);
+}
+
+function saveGame() {
+    gameData.points = points;
+    gameData.powerCounter = powerCounter;
+    gameData.clickCounter = clickCounter;
+    gameData.totalClicks = totalClicks;
+    gameData.luckFactor = luckFactor;
+    gameData.totalPoints = totalPoints;
+    gameData.criticalFactor = criticalFactor;
+    gameData.critClicks = critClicks;
+    gameData.rarityFactorCrit = rarityFactorCrit;
+    gameData.rarityFactorLuck = rarityFactorLuck;
+    gameData.minClicks = minClicks;
+    // Weitere Spielstandsdaten hier aktualisieren
+
+    localStorage.setItem('gameData', JSON.stringify(gameData));
+}
+
+function loadGame() {
+    const savedGameData = localStorage.getItem('gameData');
+
+    if (savedGameData) {
+        gameData = JSON.parse(savedGameData);
+
+        // Setze die Werte aus dem geladenen Spielstand
+        points = gameData.points;
+        powerCounter = gameData.powerCounter;
+        clickCounter = gameData.clickCounter;
+        totalClicks = gameData.totalClicks;
+        luckFactor = gameData.luckFactor;
+        totalPoints = gameData.totalPoints;
+        criticalFactor = gameData.criticalFactor;
+        critClicks = gameData.critClicks;
+        rarityFactorCrit = gameData.rarityFactorCrit;
+        rarityFactorLuck = gameData.rarityFactorLuck;
+        minClicks = gameData.minClicks;
+        // Weitere Spielstandsdaten hier setzen
+
+        updateDisplay(); // Aktualisiere die Anzeige nach dem Laden
+    }
+}
 function applyCriticalHit() {
-    const criticalChance = 0.1 + (criticalFactor * 0.02); // Basischance von 10%, erhöht sich exponentiell
-    if (Math.random() < criticalChance) {
-        const bonus = Math.floor(powerCounter * 2); // Kritischer Treffer gibt das Doppelte des normalen Bonus
+        const bonus = Math.floor(powerCounter * 1000); // Kritischer Treffer gibt das Doppelte des normalen Bonus
         points += bonus;
         totalPoints += bonus;
+        critClicks++;
         updateDisplay();
-        alert('Critical Click!');
-    }
+        showNotification('Critical Click!');
+        saveGame();
 }
 
 function applyLuckBonus() {
-    const clickMultiplier = Math.floor(Math.random() * (401 - luckFactor * 50)) + (20 + luckFactor * 50);
-    const bonus = Math.floor(totalPoints * (clickMultiplier / 100));
+    const bonus = Math.floor(points / 2); // Hier wurde die Berechnung angepasst
     points += bonus;
     totalPoints += bonus;
     updateDisplay();
-    alert(`You just became a Luck Bonus of ${formatNumber(bonus)}`)
+    playLuckSound();
+    showNotification(`You just gained a Luck Bonus of ${formatNumber(bonus)}`);
+    saveGame();
+}
+
+// Beispiel für Click-Sound
+function playClickSound() {
+    const clickSound = document.getElementById('clickSound');
+    clickSound.currentTime = 0; // Setzt die Wiedergabezeit auf den Anfang, um den Sound bei jedem Klick abzuspielen
+    clickSound.play();
+}
+
+// Beispiel für Critical-Hit-Sound
+function playCriticalHitSound() {
+    const criticalHitSound = document.getElementById('criticalHitSound');
+    criticalHitSound.currentTime = 0;
+    criticalHitSound.play();
+}
+
+// Beispiel für Critical-Hit-Sound
+function playUpgradeSound() {
+    const playUpgradeSound = document.getElementById('upgradeSound');
+    playUpgradeSound.currentTime = 0;
+    playUpgradeSound.play();
+}
+
+function playLuckSound() {
+    const playLuckSound = document.getElementById('luckSound');
+    playLuckSound.currentTime = 0;
+    playLuckSound.play();
 }
 
 document.getElementById('clickBtn').addEventListener('click', () => {
@@ -46,14 +138,25 @@ document.getElementById('clickBtn').addEventListener('click', () => {
     clickCounter++;
     totalClicks++;
 
-    const luckClickThreshold = Math.floor(Math.random() * (401 - luckFactor * 50)) + (20 + luckFactor * 50);
+    const luckClickThreshold = Math.floor(Math.random() * (rarityFactorLuck * (401 - luckFactor * 50))) + (20 + luckFactor * 50);
 
     if (clickCounter >= luckClickThreshold) {
         applyLuckBonus();
         clickCounter = 0;
     }
+    if (totalClicks >= minClicks){
+        const criticalClickThreshold = Math.floor(Math.random() * (rarityFactorCrit * (401 - criticalFactor * 50))) + (20 + criticalFactor * 50);
+    
+        if (clickCounter >= criticalClickThreshold) {
+            applyCriticalHit();
+            playCriticalHitSound();
+            clickCounter = 0;
+        }
+    }
     updateDisplay();
     checkAchievements();
+    playClickSound();
+    saveGame();
 });
 
 function formatNumber(number) {
@@ -66,6 +169,7 @@ function formatNumber(number) {
     }
 
     return number.toFixed(2).toLocaleString() + suffixes[suffixIndex];
+        saveGame();
 }
 
 function applyBonus() {
@@ -73,19 +177,21 @@ function applyBonus() {
     bonusMultiplier = 1 + bonusLevel * 0.1; // Beispiel: Jedes Upgrade erhöht den Bonus um 10%
     powerCounter *= bonusMultiplier;
     // Weitere Bonus-Logik hier hinzufügen, je nach den Anforderungen deines Spiels
+    saveGame();
 }
 
 function updateDisplay() {
     autoSpeedDisplay.textContent = `${autoClickSpeed} ms`;
     totalclicksDisplay.textContent = `${formatNumber(totalClicks)} clicks`;
-    totalpointsDisplay.textContent = `${formatNumber(totalPoints)} points `
-    critDisplay.textContent = `${critClicks} lvl`;
+    totalpointsDisplay.textContent = `${formatNumber(totalPoints)} points `;
+    critDisplay.textContent = `${critClicks} clicks`;
+    critFactorDisplay.textContent = `${rarityFactorCrit} Factor`;
     bonusDisplay.textContent = `${bonusMultiplier}%`;
     pointsDisplay.textContent = formatNumber(points);
     clickPowerDisplay.textContent = `${formatNumber(powerCounter)} ppc`;
-    bonusUpgradeBtn.textContent = `BONUS Upgrade (Cost: ${formatNumber(bonusUpgradeCost)} points), (Level: ${upgradeLevel}/250)`;
+    bonusUpgradeBtn.textContent = `BONUS Upgrade (Cost: ${formatNumber(bonusUpgradeCost)} points), (Level: ${bonusLevel}/50)`;
     upgradeBtn.textContent = `UPGRADE Power (Cost: ${formatNumber(upgradeCost)} points), (Level: ${upgradeLevel}/250)`;
-    criticalUpgradeBtn.textContent = `Critical Upgrade (Cost: ${formatNumber(criticalUpgradeCost)} points), (Level: ${criticalLevel}/40)`;
+    criticalUpgradeBtn.textContent = `CRITICAL Upgrade (Cost: ${formatNumber(criticalUpgradeCost)} points), (Level: ${criticalLevel}/15)`;
     if (!autoClickerPurchased) {
         autoClickBtn.textContent = `Auto Clicker (Cost: ${formatNumber(autoClickCost)} points)`;
     } else if (!autoClickerOn) {
@@ -94,6 +200,7 @@ function updateDisplay() {
         autoClickBtn.textContent = 'Auto Clicker Off';
     }
     autoUpgradeBtn.textContent = `AUTO SPEED Upgrade (Cost: ${formatNumber(autoUpgradeCost)} points), (Level: ${autoClickerLevel}/18)`;
+    saveGame();
 }
 
 function startAutoClicker() {
@@ -112,5 +219,7 @@ function stopAutoClicker() {
     autoClickerOn = false;
     updateDisplay();
 }
+
+window.addEventListener('beforeunload', saveGame);
 
 updateDisplay();

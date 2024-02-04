@@ -13,6 +13,7 @@
     <h2><u>Stats</u></h2>
     <p>•Click Power: <span id="powerCounter"><br>50.00 ppc</span></p>
     <p>•Critical Clicks: <span id="criticalCounter"><br>0 Crits</span></p>
+    <p>•Test: <span id="criticalFactor"><br>20 Factor</span></p>
     <p>•Bonus: <span id="bonusCounter"><br>0.00%</span></p>
     <p>•Auto Speed: <span id="autoSpeed"><br>1000 ms</span></p>
     <p>•Total Clicks: <span id="totalclickCounter"><br>0 clicks</span></p>
@@ -20,6 +21,12 @@
     <!-- Weitere Statistiken hier hinzufügen -->
 </div>
 
+<audio id="clickSound" src="click-sound.mp3"></audio>
+<audio id="criticalHitSound" src="critical-hit-sound.mp3"></audio>
+<audio id="upgradeSound" src="upgrade.mp3"></audio>
+<audio id="luckSound" src="luck.mp3"></audio>
+
+<div id="notification" class="notification"></div>
 
 
 <div class="clicker-container">
@@ -35,7 +42,7 @@
     <button id="upgradeBtn"><span style="color: #e06363">POWER</span> Upgrade (Cost: 300.00 points), (Level: <span id="upgradeLevel">0</span>/250)</button>
     <button id="bonusUpgradeBtn"><span style="color: #E06363FF">BONUS</span> Upgrade (Cost: 4.00k points), (Level: <span id="bonusLevel">0</span>/50)</button>
     <button id="autoUpgradeBtn"><span style="color: #E06363FF">AUTO SPEED</span> Upgrade (Cost: 100.00k points), (Level: <span id="autoClickerLevel">0</span>/18)</button>
-    <button id="criticalUpgradeBtn"><span style="color: #E06363FF">CRITICAL</span> Upgrade (Cost: 5.00k points), (Level: <span id="luckLevel">0</span>/40)</button>
+    <button id="criticalUpgradeBtn"><span style="color: #E06363FF">CRITICAL</span> Upgrade (Cost: 650.00k points), (Level: <span id="luckLevel">0</span>/15)</button>
 </div>
 
 

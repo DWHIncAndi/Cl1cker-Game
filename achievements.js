@@ -9,40 +9,41 @@ function checkAchievements() {
         const achievement = '•First Click!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
-        alert(`Achievement Unlocked: ${achievement}`);
+        showNotification(`Achievement Unlocked: ${achievement}`);
     }
 
     if (rawPoints >= 100000 && !achievementsUnlocked.includes('•First 100k!')) {
         const achievement = '•First 100k!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
-        alert(`Achievement Unlocked: ${achievement}`);
+        showNotification(`Achievement Unlocked: ${achievement}`);
     }
 
     if (rawPoints >= 1000000 && !achievementsUnlocked.includes('•Million points!')) {
         const achievement = '•Million points!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
-        alert(`Achievement Unlocked: ${achievement}`);
+        showNotification(`Achievement Unlocked: ${achievement}`);
     }
 
     if (rawPoints >= 100000000 && !achievementsUnlocked.includes('•Multi Millionaire!')) {
         const achievement = '•Multi Millionaire!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
-        alert(`Achievement Unlocked: ${achievement}`);
+        showNotification(`Achievement Unlocked: ${achievement}`);
     }
 
     if (rawPoints >= 400000000000000 && !achievementsUnlocked.includes('•Richest Person!')) {
         const achievement = '•Richest Person!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
-        alert(`Achievement Unlocked: ${achievement}`);
+        showNotification(`Achievement Unlocked: ${achievement}`);
     }
 }
 
 function updateAchievementDisplay() {
     achievementDisplay.innerHTML = achievementsUnlocked.join('<br>');
+    saveGame();
 }
 
 

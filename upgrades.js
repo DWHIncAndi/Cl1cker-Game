@@ -10,7 +10,7 @@ let autoUpgradeCost = 100000;
 let bonusUpgradeCost = 4000;
 let bonusLevel = 0;
 let bonusMultiplier = 0.00;
-let criticalUpgradeCost = 5000;
+let criticalUpgradeCost = 650000;
 let criticalLevel = 0;
 
 
@@ -21,6 +21,7 @@ autoClickBtn.addEventListener('click', () => {
             autoClickerOn = true;
             autoClickerPurchased = true;
             startAutoClicker();
+            playUpgradeSound();
         }
     } else if (!autoClickerOn) {
         stopAutoClicker();
@@ -39,16 +40,18 @@ upgradeBtn.addEventListener('click', () => {
         upgradeCost *= 6.5;
         upgradeLevel++;
         updateDisplay();
+        playUpgradeSound();
     } else if (upgradeLevel >= 250) {
-        alert('You have reached the maximum level for this upgrade!');
+        showNotification('You have reached the maximum level for this upgrade!');
     } else {
-        alert('Not enough points to upgrade!');
+        showNotification('Not enough points to upgrade!');
     }
+    saveGame();
 });
 
 autoUpgradeBtn.addEventListener('click', () => {
     if (!autoClickerPurchased){
-        alert('You must buy the Auto clicker to use this upgrade!');
+        showNotification('You must buy the Auto clicker to use this upgrade!');
     }
     else if (points >= autoUpgradeCost && autoClickerLevel < 18) {
         points -= autoUpgradeCost;
@@ -58,11 +61,13 @@ autoUpgradeBtn.addEventListener('click', () => {
         clearInterval(autoClickInterval);
         startAutoClicker(); // Starte den Auto Clicker neu mit der aktualisierten Geschwindigkeit
         updateDisplay();
+        playUpgradeSound();
     } else if (autoClickerLevel >= 18) {
-        alert('You have reached the maximum level for this upgrade!');
+        showNotification('You have reached the maximum level for this upgrade!');
     } else {
-        alert('Not enough points to upgrade Auto Clicker!');
+        showNotification('Not enough points to upgrade Auto Clicker!');
     }
+    saveGame();
 });
 
 bonusUpgradeBtn.addEventListener('click', () => {
@@ -72,23 +77,27 @@ bonusUpgradeBtn.addEventListener('click', () => {
         applyBonus();
         bonusUpgradeCost *= 6.5; // Kosten für das nächste Upgrade erhöhen
         updateDisplay();
+        playUpgradeSound();
     } else if (bonusLevel >= 50) {
-        alert('You have reached the maximum level for this upgrade!');
+        showNotification('You have reached the maximum level for this upgrade!');
     } else {
-        alert('Not enough points to upgrade Bonus!');
+        showNotification('Not enough points to upgrade Bonus!');
     }
+    saveGame();
 });
 
 criticalUpgradeBtn.addEventListener('click', () => {
-    if (points >= criticalUpgradeCost && criticalLevel < 40) {
+    if (points >= criticalUpgradeCost && criticalLevel < 15) {
         points -= criticalUpgradeCost;
         criticalLevel++;
-        criticalUpgradeCost *= 1.5; // Kosten für das nächste Upgrade erhöhen
-        criticalFactor *= 1.2; // Faktor exponentiell erhöhen
+        criticalUpgradeCost *= 10.5; // Kosten für das nächste Upgrade erhöhen
+        rarityFactorCrit -= 1; // Faktor exponentiell erhöhen
         updateDisplay();
-    } else if (criticalLevel >= 40) {
-        alert('You have reached the maximum level for Critical Hit upgrade!');
+        playUpgradeSound();
+    } else if (criticalLevel >= 15) {
+        showNotification('You have reached the maximum level for Critical Hit upgrade!');
     } else {
-        alert('Not enough points to upgrade Critical Hit!');
+        showNotification('Not enough points to upgrade Critical Hit!');
     }
+    saveGame();
 });

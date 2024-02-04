@@ -60,6 +60,18 @@ body {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    display: none;
+    z-index: 999;
+}
+
 h1 {
     position: absolute;
     color: #61dafb; /* Blaue Überschrift */
