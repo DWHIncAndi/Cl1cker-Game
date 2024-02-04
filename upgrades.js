@@ -1,3 +1,4 @@
+
 autoClickBtn.addEventListener('click', () => {
     if (!autoClickerPurchased) {
         if (points >= autoClickCost && !autoClickerOn) {

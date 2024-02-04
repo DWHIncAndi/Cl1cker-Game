@@ -137,7 +137,7 @@ function loadGame() {
         updateDisplay(); // Aktualisiere die Anzeige nach dem Laden
     }
 }
-
+ 
 function applyCriticalHit() {
         const bonus = Math.floor(powerCounter * 1000); // Kritischer Treffer gibt das Doppelte des normalen Bonus
         points += bonus;

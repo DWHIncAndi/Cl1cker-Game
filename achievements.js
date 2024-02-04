@@ -1,5 +1,3 @@
-let achievementsUnlocked = [];
-
 const achievementDisplay = document.getElementById('achievement');
 
 function checkAchievements() {
