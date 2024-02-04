@@ -1,19 +1,3 @@
-let autoClickerOn = false
-let autoClickSpeed = 1000; // Startgeschwindigkeit des Auto Clickers
-let upgradeCost = 300;
-let upgradeLevel = 0
-let autoClickCost = 50000;
-let autoClickerPurchased = false;
-let autoClickInterval;
-let autoClickerLevel = 0
-let autoUpgradeCost = 100000;
-let bonusUpgradeCost = 4000;
-let bonusLevel = 0;
-let bonusMultiplier = 0.00;
-let criticalUpgradeCost = 650000;
-let criticalLevel = 0;
-
-
 autoClickBtn.addEventListener('click', () => {
     if (!autoClickerPurchased) {
         if (points >= autoClickCost && !autoClickerOn) {
