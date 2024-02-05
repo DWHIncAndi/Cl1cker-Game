@@ -1,31 +1,29 @@
-let gameData = {
-    points: 0,
-    powerCounter: 50,
-    clickCounter: 0,
-    totalClicks: 0,
-    luckFactor: 1,
-    totalPoints: 0,
-    criticalFactor: 1,
-    critClicks: 0,
-    rarityFactorCrit: 30,
-    rarityFactorLuck: 30,
-    minClicks: 1000,
-    autoClickerOn: false,
-    autoClickSpeed: 1000,
-    upgradeCost: 300,
-    upgradeLevel: 0,
-    autoClickCost: 50000,
-    autoClickerPurchased: false,
-    autoClickInterval,
-    autoClickerLevel: 0,
-    autoUpgradeCost: 100000,
-    bonusUpgradeCost: 4000,
-    bonusLevel: 0,
-    bonusMultiplier: 0.00,
-    criticalUpgradeCost: 650000,
-    criticalLevel: 0,
-    achievementsUnlocked: []
-};
+let points = 0;
+let powerCounter = 50;
+let clickCounter = 0;
+let totalClicks = 0;
+let luckFactor = 1;
+let totalPoints = 0;
+let criticalFactor = 1;
+let critClicks = 0;
+let rarityFactorCrit = 30;
+let rarityFactorLuck = 30;
+let minClicks = 1000;
+let autoClickerOn = false;
+let autoClickSpeed = 1000;
+let upgradeCost = 300;
+let upgradeLevel = 0;
+let autoClickCost = 50000;
+let autoClickerPurchased = false;
+let autoClickInterval;
+let autoClickerLevel = 0;
+let autoUpgradeCost = 100000;
+let bonusUpgradeCost = 4000;
+let bonusLevel = 0;
+let bonusMultiplier = 0.00;
+let criticalUpgradeCost = 650000;
+let criticalLevel = 0;
+let achievementsUnlocked = [];
 
 const pointsDisplay = document.getElementById('points');
 const totalclicksDisplay = document.getElementById('totalclickCounter');
@@ -65,38 +63,76 @@ function showNotification(message) {
     }, 3000);
 }
 
-function saveGame() {
-    // Existing code remains unchanged
-    const gameDataToSave = {
-        points: gameData.points,
-        powerCounter: gameData.powerCounter,
-        clickCounter: gameData.clickCounter,
-        totalClicks: gameData.totalClicks,
-        luckFactor: gameData.luckFactor,
-        totalPoints: gameData.totalPoints,
-        criticalFactor: gameData.criticalFactor,
-        critClicks: gameData.critClicks,
-        rarityFactorCrit: gameData.rarityFactorCrit,
-        rarityFactorLuck: gameData.rarityFactorLuck,
-        minClicks: gameData.minClicks,
-        autoClickerOn: gameData.autoClickerOn,
-        autoClickSpeed: gameData.autoClickSpeed,
-        upgradeCost: gameData.upgradeCost,
-        upgradeLevel: gameData.upgradeLevel,
-        autoClickCost: gameData.autoClickCost,
-        autoClickerPurchased: gameData.autoClickerPurchased,
-        autoClickInterval: gameData.autoClickInterval,
-        autoClickerLevel: gameData.autoClickerLevel,
-        autoUpgradeCost: gameData.autoUpgradeCost,
-        bonusUpgradeCost: gameData.bonusUpgradeCost,
-        bonusLevel: gameData.bonusLevel,
-        bonusMultiplier: gameData.bonusMultiplier,
-        criticalUpgradeCost: gameData.criticalUpgradeCost,
-        criticalLevel: gameData.criticalLevel,
-        achievementsUnlocked: gameData.achievementsUnlocked
-    };
+resetBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to reset the game?')) {
+        resetGame();
+    }
+});
 
-    localStorage.setItem('gameData', JSON.stringify(gameDataToSave));
+function resetGame() {
+    // Setze alle Spielstandsdaten auf ihre Standardwerte zurück
+    points = 0;
+    powerCounter = 50;
+    clickCounter = 0;
+    totalClicks = 0;
+    luckFactor = 1;
+    totalPoints = 0;
+    criticalFactor = 1;
+    critClicks = 0;
+    rarityFactorCrit = 30;
+    rarityFactorLuck = 30;
+    minClicks = 1000;
+    autoClickerOn = false;
+    autoClickSpeed = 1000;
+    upgradeCost = 300;
+    upgradeLevel = 0;
+    autoClickCost = 50000;
+    autoClickerPurchased = false;
+    autoClickInterval;
+    autoClickerLevel = 0;
+    autoUpgradeCost = 100000;
+    bonusUpgradeCost = 4000;
+    bonusLevel = 0;
+    bonusMultiplier = 0.00;
+    criticalUpgradeCost = 650000;
+    criticalLevel = 0;
+
+    saveGame();
+
+    updateDisplay();
+}
+
+function saveGame() {
+    const gameData = {
+        points,
+        powerCounter,
+        clickCounter,
+        totalClicks,
+        luckFactor,
+        totalPoints,
+        criticalFactor,
+        critClicks,
+        rarityFactorCrit,
+        rarityFactorLuck,
+        minClicks,
+        autoClickerOn,
+        autoClickSpeed,
+        upgradeCost,
+        upgradeLevel,
+        autoClickCost,
+        autoClickerPurchased,
+        autoClickIntervalActive: autoClickerOn, // Hier wird ein boolischer Wert gespeichert, um festzustellen, ob das Interval aktiv war
+        autoClickerLevel,
+        autoUpgradeCost,
+        bonusUpgradeCost,
+        bonusLevel,
+        bonusMultiplier,
+        criticalUpgradeCost,
+        criticalLevel,
+        achievementsUnlocked
+    };
+    console.log('Game Saved:', gameData );
+    localStorage.setItem('gameData', JSON.stringify(gameData));
 }
 
 function loadGame() {
@@ -105,39 +141,24 @@ function loadGame() {
     if (savedGameData) {
         const loadedGameData = JSON.parse(savedGameData);
 
-        // Existing code remains unchanged
-        gameData.points = loadedGameData.points || gameData.points;
-        gameData.powerCounter = loadedGameData.powerCounter || gameData.powerCounter;
-        gameData.clickCounter = loadedGameData.clickCounter || gameData.clickCounter;
-        gameData.totalClicks = loadedGameData.totalClicks || gameData.totalClicks;
-        gameData.luckFactor = loadedGameData.luckFactor || gameData.luckFactor;
-        gameData.totalPoints = loadedGameData.totalPoints || gameData.totalPoints;
-        gameData.criticalFactor = loadedGameData.criticalFactor || gameData.criticalFactor;
-        gameData.critClicks = loadedGameData.critClicks || gameData.critClicks;
-        gameData.rarityFactorCrit = loadedGameData.rarityFactorCrit || gameData.rarityFactorCrit;
-        gameData.rarityFactorLuck = loadedGameData.rarityFactorLuck || gameData.rarityFactorLuck;
-        gameData.minClicks = loadedGameData.minClicks || gameData.minClicks;
-        gameData.autoClickerOn = loadedGameData.autoClickerOn || gameData.autoClickerOn;
-        gameData.autoClickSpeed = loadedGameData.autoClickSpeed || gameData.autoClickSpeed;
-        gameData.upgradeCost = loadedGameData.upgradeCost || gameData.upgradeCost;
-        gameData.upgradeLevel = loadedGameData.upgradeLevel || gameData.upgradeLevel;
-        gameData.autoClickCost = loadedGameData.autoClickCost || gameData.autoClickCost;
-        gameData.autoClickerPurchased = loadedGameData.autoClickerPurchased || gameData.autoClickerPurchased;
-        gameData.autoClickInterval = loadedGameData.autoClickInterval || null; // Ensure it's initialized properly
-        gameData.autoClickerLevel = loadedGameData.autoClickerLevel || gameData.autoClickerLevel;
-        gameData.autoUpgradeCost = loadedGameData.autoUpgradeCost || gameData.autoUpgradeCost;
-        gameData.bonusUpgradeCost = loadedGameData.bonusUpgradeCost || gameData.bonusUpgradeCost;
-        gameData.bonusLevel = loadedGameData.bonusLevel || gameData.bonusLevel;
-        gameData.bonusMultiplier = loadedGameData.bonusMultiplier || gameData.bonusMultiplier;
-        gameData.criticalUpgradeCost = loadedGameData.criticalUpgradeCost || gameData.criticalUpgradeCost;
-        gameData.criticalLevel = loadedGameData.criticalLevel || gameData.criticalLevel;
-        gameData.achievementsUnlocked = loadedGameData.achievementsUnlocked || gameData.achievementsUnlocked;
-
-        // Weitere Laden-Daten hier hinzufügen, wenn vorhanden
+        for (const property in loadedGameData) {
+            if (loadedGameData.hasOwnProperty(property)) {
+                // Überprüfe, ob die Eigenschaft autoClickIntervalActive vorhanden ist
+                if (property === 'autoClickIntervalActive' && loadedGameData[property]) {
+                    // Wenn ja, starte das Auto-Clicker-Interval
+                    startAutoClicker();
+                } else {
+                    // Ansonsten setze die Eigenschaft direkt
+                    window[property] = loadedGameData[property];
+                }
+            }
+        }
+        
+        console.log('Game Loaded:', loadedGameData )
         updateDisplay(); // Aktualisiere die Anzeige nach dem Laden
     }
 }
- 
+
 function applyCriticalHit() {
         const bonus = Math.floor(powerCounter * 1000); // Kritischer Treffer gibt das Doppelte des normalen Bonus
         points += bonus;
@@ -183,6 +204,12 @@ function playLuckSound() {
     const playLuckSound = document.getElementById('luckSound');
     playLuckSound.currentTime = 0;
     playLuckSound.play();
+}
+
+function playAchievementSound() {
+    const playAchievementSound = document.getElementById('achievementSound');
+    playAchievementSound.currentTime = 0;
+    playAchievementSound.play();
 }
 
 document.getElementById('clickBtn').addEventListener('click', () => {
@@ -253,7 +280,6 @@ function updateDisplay() {
         autoClickBtn.textContent = 'Auto Clicker Off';
     }
     autoUpgradeBtn.textContent = `AUTO SPEED Upgrade (Cost: ${formatNumber(autoUpgradeCost)} points), (Level: ${autoClickerLevel}/18)`;
-    saveGame();
 }
 
 function startAutoClicker() {
@@ -274,5 +300,4 @@ function stopAutoClicker() {
 }
 
 window.addEventListener('beforeunload', saveGame);
-
 updateDisplay();

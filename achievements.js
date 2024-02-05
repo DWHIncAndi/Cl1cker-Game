@@ -41,6 +41,7 @@ function checkAchievements() {
 
 function updateAchievementDisplay() {
     achievementDisplay.innerHTML = achievementsUnlocked.join('<br>');
+    playAchievementSound();
     saveGame();
 }
 
