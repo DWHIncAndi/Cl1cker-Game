@@ -30,7 +30,6 @@ upgradeBtn.addEventListener('click', () => {
     } else {
         showNotification('Not enough points to upgrade!');
     }
-    saveGame();
 });
 
 autoUpgradeBtn.addEventListener('click', () => {
@@ -51,7 +50,6 @@ autoUpgradeBtn.addEventListener('click', () => {
     } else {
         showNotification('Not enough points to upgrade Auto Clicker!');
     }
-    saveGame();
 });
 
 bonusUpgradeBtn.addEventListener('click', () => {
@@ -67,7 +65,6 @@ bonusUpgradeBtn.addEventListener('click', () => {
     } else {
         showNotification('Not enough points to upgrade Bonus!');
     }
-    saveGame();
 });
 
 criticalUpgradeBtn.addEventListener('click', () => {
@@ -83,5 +80,4 @@ criticalUpgradeBtn.addEventListener('click', () => {
     } else {
         showNotification('Not enough points to upgrade Critical Hit!');
     }
-    saveGame();
 });

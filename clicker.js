@@ -36,32 +36,61 @@ const autoUpgradeBtn = document.getElementById('autoUpgradeBtn');
 const autoClickBtn = document.getElementById('autoClickBtn');
 const bonusUpgradeBtn = document.getElementById('bonusUpgradeBtn');
 const criticalUpgradeBtn = document.getElementById('criticalUpgradeBtn');
-const critDisplay = document.getElementById('criticalCounter')
-const critFactorDisplay = document.getElementById('criticalFactor')
+const critDisplay = document.getElementById('criticalCounter');
+const critFactorDisplay = document.getElementById('criticalFactor');
 const resetBtn = document.getElementById('resetBtn');
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Stelle sicher, dass das Spiel geladen wird, nachdem das DOM vollständig geladen wurde
-    loadGame();
-    // Füge weitere Initialisierungen oder Funktionen hinzu, die nach dem Laden des Spiels ausgeführt werden sollen
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const startMenu = document.getElementById('start-menu');
+    const gameContent = document.getElementById('game-content');
+    const achievementsContainer = document.getElementById('whole-achievement-container');
 
-resetBtn.addEventListener('click', () => {
-    if (confirm('Are you sure you want to reset the game?')) {
-        resetGame();
+    // Funktion zum Anzeigen des Startmenüs
+    function showStartMenu() {
+        startMenu.style.display = 'block';
+        gameContent.style.display = 'none';
+        achievementsContainer.style.display = 'none';
     }
+
+    // Funktion zum Anzeigen des Spiels
+    function showGameContent() {
+        startMenu.style.display = 'none';
+        gameContent.style.display = 'block';
+        achievementsContainer.style.display = 'none';
+    }
+
+    // Funktion zum Anzeigen der Achievements
+    function showAchievements() {
+        startMenu.style.display = 'none';
+        gameContent.style.display = 'none';
+        achievementsContainer.style.display = 'block';
+    }
+
+    // Event Listener für jeden Button im Startmenü
+    document.getElementById('achievements-btn').addEventListener('click', () => {
+        showAchievements();
+        showAllAchievements();
+    });
+
+    document.getElementById('new-game-btn').addEventListener('click', () => {
+        resetGame();
+        showGameContent();
+    });
+
+    document.getElementById('load-game-btn').addEventListener('click', () => {
+        loadGame();
+        showGameContent();
+    });
+
+    document.getElementById('back').addEventListener('click', () => {
+        showStartMenu();
+    });
+
+    // Standardmäßig das Startmenü anzeigen
+    showStartMenu();
 });
 
-function showNotification(message) {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.style.display = 'block';
 
-    // Verstecke die Benachrichtigung nach 3 Sekunden
-    setTimeout(() => {
-        notification.style.display = 'none';
-    }, 3000);
-}
 
 resetBtn.addEventListener('click', () => {
     if (confirm('Are you sure you want to reset the game?')) {
@@ -96,67 +125,82 @@ function resetGame() {
     bonusMultiplier = 0.00;
     criticalUpgradeCost = 650000;
     criticalLevel = 0;
-
-    saveGame();
+    achievementsUnlocked = []; // Leeres Array für Achievements
 
     updateDisplay();
 }
 
-function saveGame() {
-    const gameData = {
-        points,
-        powerCounter,
-        clickCounter,
-        totalClicks,
-        luckFactor,
-        totalPoints,
-        criticalFactor,
-        critClicks,
-        rarityFactorCrit,
-        rarityFactorLuck,
-        minClicks,
-        autoClickerOn,
-        autoClickSpeed,
-        upgradeCost,
-        upgradeLevel,
-        autoClickCost,
-        autoClickerPurchased,
-        autoClickIntervalActive: autoClickerOn, // Hier wird ein boolischer Wert gespeichert, um festzustellen, ob das Interval aktiv war
-        autoClickerLevel,
-        autoUpgradeCost,
-        bonusUpgradeCost,
-        bonusLevel,
-        bonusMultiplier,
-        criticalUpgradeCost,
-        criticalLevel,
-        achievementsUnlocked
-    };
-    console.log('Game Saved:', gameData );
-    localStorage.setItem('gameData', JSON.stringify(gameData));
+function loadGame() {
+    points = parseInt(localStorage.getItem('points')) || points;
+    powerCounter = parseInt(localStorage.getItem('powerCounter')) || powerCounter;
+    clickCounter = parseInt(localStorage.getItem('clickCounter')) || clickCounter;
+    totalClicks = parseInt(localStorage.getItem('totalClicks')) || totalClicks;
+    luckFactor = parseFloat(localStorage.getItem('luckFactor')) || luckFactor;
+    totalPoints = parseInt(localStorage.getItem('totalPoints')) || totalPoints;
+    criticalFactor = parseFloat(localStorage.getItem('criticalFactor')) || criticalFactor;
+    critClicks = parseInt(localStorage.getItem('critClicks')) || critClicks;
+    rarityFactorCrit = parseInt(localStorage.getItem('rarityFactorCrit')) || rarityFactorCrit;
+    rarityFactorLuck = parseInt(localStorage.getItem('rarityFactorLuck')) || rarityFactorLuck;
+    minClicks = parseInt(localStorage.getItem('minClicks')) || minClicks;
+    autoClickerOn = localStorage.getItem('autoClickerOn') === 'true';
+    autoClickSpeed = parseInt(localStorage.getItem('autoClickSpeed')) || autoClickSpeed;
+    upgradeCost = parseInt(localStorage.getItem('upgradeCost')) || upgradeCost;
+    upgradeLevel = parseInt(localStorage.getItem('upgradeLevel')) || upgradeLevel;
+    autoClickCost = parseInt(localStorage.getItem('autoClickCost')) || autoClickCost;
+    autoClickerPurchased = localStorage.getItem('autoClickerPurchased') === 'true';
+    autoClickerLevel = parseInt(localStorage.getItem('autoClickerLevel')) || autoClickerLevel;
+    autoUpgradeCost = parseInt(localStorage.getItem('autoUpgradeCost')) || autoUpgradeCost;
+    bonusUpgradeCost = parseInt(localStorage.getItem('bonusUpgradeCost')) || bonusUpgradeCost;
+    bonusLevel = parseInt(localStorage.getItem('bonusLevel')) || bonusLevel;
+    bonusMultiplier = parseFloat(localStorage.getItem('bonusMultiplier')) || bonusMultiplier;
+    criticalUpgradeCost = parseInt(localStorage.getItem('criticalUpgradeCost')) || criticalUpgradeCost;
+    criticalLevel = parseInt(localStorage.getItem('criticalLevel')) || criticalLevel;
+    achievementsUnlocked = JSON.parse(localStorage.getItem('achievementsUnlocked')) || [];
+    console.log('Game data loaded from localStorage:', localStorage);
+
+    updateDisplay(); // Anzeige aktualisieren, nachdem das Spiel geladen wurde
+    updateAchievementDisplay();
 }
 
-function loadGame() {
-    const savedGameData = localStorage.getItem('gameData');
+function saveGame() {
+    localStorage.setItem('points', points);
+    localStorage.setItem('powerCounter', powerCounter);
+    localStorage.setItem('clickCounter', clickCounter);
+    localStorage.setItem('totalClicks', totalClicks);
+    localStorage.setItem('luckFactor', luckFactor);
+    localStorage.setItem('totalPoints', totalPoints);
+    localStorage.setItem('criticalFactor', criticalFactor);
+    localStorage.setItem('critClicks', critClicks);
+    localStorage.setItem('rarityFactorCrit', rarityFactorCrit);
+    localStorage.setItem('rarityFactorLuck', rarityFactorLuck);
+    localStorage.setItem('minClicks', minClicks);
+    localStorage.setItem('autoClickerOn', autoClickerOn);
+    localStorage.setItem('autoClickSpeed', autoClickSpeed);
+    localStorage.setItem('upgradeCost', upgradeCost);
+    localStorage.setItem('upgradeLevel', upgradeLevel);
+    localStorage.setItem('autoClickCost', autoClickCost);
+    localStorage.setItem('autoClickerPurchased', autoClickerPurchased);
+    localStorage.setItem('autoClickerLevel', autoClickerLevel);
+    localStorage.setItem('autoUpgradeCost', autoUpgradeCost);
+    localStorage.setItem('bonusUpgradeCost', bonusUpgradeCost);
+    localStorage.setItem('bonusLevel', bonusLevel);
+    localStorage.setItem('bonusMultiplier', bonusMultiplier);
+    localStorage.setItem('criticalUpgradeCost', criticalUpgradeCost);
+    localStorage.setItem('criticalLevel', criticalLevel);
+    localStorage.setItem('achievementsUnlocked', JSON.stringify(achievementsUnlocked));
+    console.log('Game data saved to localStorage:', localStorage);
+}
 
-    if (savedGameData) {
-        const loadedGameData = JSON.parse(savedGameData);
 
-        for (const property in loadedGameData) {
-            if (loadedGameData.hasOwnProperty(property)) {
-                // Überprüfe, ob die Eigenschaft autoClickIntervalActive vorhanden ist
-                if (property === 'autoClickIntervalActive' && loadedGameData[property]) {
-                    // Wenn ja, starte das Auto-Clicker-Interval
-                    startAutoClicker();
-                } else {
-                    // Ansonsten setze die Eigenschaft direkt
-                    window[property] = loadedGameData[property];
-                }
-            }
-        }
-        
-        console.log('Game Loaded:', loadedGameData )
-        updateDisplay(); // Aktualisiere die Anzeige nach dem Laden
-    }
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.style.display = 'block';
+
+    // Verstecke die Benachrichtigung nach 3 Sekunden
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 3000);
 }
 
 function applyCriticalHit() {
@@ -166,7 +210,6 @@ function applyCriticalHit() {
         critClicks++;
         updateDisplay();
         showNotification('Critical Click!');
-        saveGame();
 }
 
 function applyLuckBonus() {
@@ -176,7 +219,6 @@ function applyLuckBonus() {
     updateDisplay();
     playLuckSound();
     showNotification(`You just gained a Luck Bonus of ${formatNumber(bonus)}`);
-    saveGame();
 }
 
 // Beispiel für Click-Sound
@@ -257,7 +299,6 @@ function applyBonus() {
     bonusMultiplier = 1 + bonusLevel * 0.1; // Beispiel: Jedes Upgrade erhöht den Bonus um 10%
     powerCounter *= bonusMultiplier;
     // Weitere Bonus-Logik hier hinzufügen, je nach den Anforderungen deines Spiels
-    saveGame();
 }
 
 function updateDisplay() {
@@ -280,6 +321,7 @@ function updateDisplay() {
         autoClickBtn.textContent = 'Auto Clicker Off';
     }
     autoUpgradeBtn.textContent = `AUTO SPEED Upgrade (Cost: ${formatNumber(autoUpgradeCost)} points), (Level: ${autoClickerLevel}/18)`;
+    console.log('Display updated');
 }
 
 function startAutoClicker() {

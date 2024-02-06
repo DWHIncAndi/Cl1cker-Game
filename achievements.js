@@ -8,6 +8,7 @@ function checkAchievements() {
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
     }
 
     if (rawPoints >= 100000 && !achievementsUnlocked.includes('•First 100k!')) {
@@ -15,6 +16,7 @@ function checkAchievements() {
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
     }
 
     if (rawPoints >= 1000000 && !achievementsUnlocked.includes('•Million points!')) {
@@ -22,6 +24,7 @@ function checkAchievements() {
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
     }
 
     if (rawPoints >= 100000000 && !achievementsUnlocked.includes('•Multi Millionaire!')) {
@@ -29,6 +32,7 @@ function checkAchievements() {
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
     }
 
     if (rawPoints >= 400000000000000 && !achievementsUnlocked.includes('•Richest Person!')) {
@@ -36,14 +40,17 @@ function checkAchievements() {
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
     }
 }
 
 function updateAchievementDisplay() {
-    achievementDisplay.innerHTML = achievementsUnlocked.join('<br>');
-    playAchievementSound();
-    saveGame();
+    const achievementDisplay = document.getElementById('achievement');
+    if (achievementDisplay) {
+        achievementDisplay.innerHTML = achievementsUnlocked.join('<br>');
+    }
 }
+
 
 
 function unformatNumber(formattedNumber) {
@@ -72,6 +79,29 @@ function unformatNumber(formattedNumber) {
 
     return rawNumber;
 }
+
+// Funktion zum Anzeigen aller Achievements im Container
+function showAllAchievements() {
+    const achievementContainer = document.getElementById('achievements-list');
+    achievementContainer.innerHTML = ''; // Zuerst den Container leeren
+
+    // Durchlaufen Sie alle Achievements und fügen Sie sie dem Container hinzu
+    const allAchievements = [
+        '•First Click!',
+        '•First 100k!',
+        '•Million points!',
+        '•Multi Millionaire!',
+        '•Richest Person!'
+        // Fügen Sie hier weitere Achievements hinzu, wenn Sie möchten
+    ];
+
+    allAchievements.forEach(achievement => {
+        const achievementElement = document.createElement('div');
+        achievementElement.textContent = achievement;
+        achievementContainer.appendChild(achievementElement);
+    });
+}
+
 
 
 

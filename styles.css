@@ -114,10 +114,6 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Erhöht den Schatten bei Hover */
-    transform: translateY(-5px); /* Hebt den Button beim Hover an */
-}
 
 #clickBtn,
 #autoClickBtn {
@@ -164,7 +160,8 @@ button:hover {
 #totalclickCounter,
 #totalpointsCounter,
 #autoCounter,
-#autoSpeed {
+#autoSpeed,
+#criticalFactor {
     font-size: 20px;
     font-weight: bold;
     color: #2ecc71;
@@ -178,5 +175,107 @@ button:hover {
 
 #achievement {
     font-style: italic;
-    color: #e67e22;
+    font-weight: bold;
+    color: #2ecc71;
+}
+
+
+#achievements-btn {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+    font-size: 25px;
+}
+
+#new-game-btn {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20%;
+    transform: translateX(20%) translateY(50%);
+    font-size: 25px;
+}
+
+#load-game-btn {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 80%;
+    transform: translateX(80%) translateY(50%);
+    font-size: 25px;
+}
+
+  
+#achievements-btn[data-tooltip],
+#new-game-btn[data-tooltip],
+#load-game-btn[data-tooltip]{
+  position: absolute;
+}
+
+#achievements-btn[data-tooltip]:hover::before,
+#new-game-btn[data-tooltip]:hover::before,
+#load-game-btn[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 20px;
+  user-select: none;
+  border-radius: 5px;
+  top: calc(100% + 10px); /* 10px Abstand von oben */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none; /* Verhindere, dass der Tooltip Klicks blockiert */
+  max-width: 200px; /* Maximale Breite des Tooltips */
+  white-space: normal; /* Zeilenumbruch erlauben */
+  line-height: 1.2em; /* Höhe einer Zeile */
+  overflow: hidden; /* Overflow verstecken */
+}
+
+
+#achievements-btn[data-tooltip]:hover::before {
+  max-height: none; /* Entferne die maximale Höhenbeschränkung für das Achievements-Tooltip */
+}
+
+
+#achievements-btn[data-tooltip]:hover::before,
+#new-game-btn[data-tooltip]:hover::before,
+#load-game-btn[data-tooltip]:hover::before {
+  opacity: 1;
+}
+
+#achievements-container1 {
+    display: block;
+    position: absolute;
+    top: 15%;
+    right: 50%;
+    font-size: 25px;
+    line-height: 2em; /* Höhe einer Zeile */
+    transform: translateX(50%) translateY(15%);
+}
+
+.back {
+    background-color: transparent;
+}
+
+#back {
+    position: absolute;
+    padding: 10px 20px; /* Anpassen des Abstands innerhalb des Buttons */
+    border: none; /* Entfernen der Standard-Rahmen */
+    color: white; /* Farbe des Textes */
+    font-size: 16px; /* Schriftgröße */
+    top: 90%;
+    cursor: pointer; /* Zeige den Zeiger an, wenn der Button angeklickt werden kann */
+    /* Füge hier weitere gewünschte Stile hinzu */
+}
+
+#back img {
+    width: 40px; /* Anpassen der Breite des Bildes */
+    height: 40px; /* Anpassen der Höhe des Bildes */
+    margin-right: 10px; /* Platzieren eines Abstands zwischen Bild und Text */
+    /* Füge hier weitere gewünschte Stile für das Bild hinzu */
 }
