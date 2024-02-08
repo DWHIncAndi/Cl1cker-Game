@@ -1,7 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
-    background: url('C:/Users/andre/Desktop/Clicker - Main/background.jpg') fixed; /* Hintergrundbild mit fixed position */
+    background: url('background.jpg') fixed; /* Hintergrundbild mit fixed position */
     background-size: cover; /* Das Bild wird so skaliert, dass es den gesamten Bildschirm ausfüllt */
     background-repeat: no-repeat; /* Das Hintergrundbild wird nicht wiederholt */
     color: #fff; /* Helle Schriftfarbe */
