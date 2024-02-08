@@ -9,19 +9,19 @@
 <body>
 
 <div id="start-menu" class="start-menu">
-    <h1><u>Start Menu</u></h1>
-    <button id="achievements-btn" data-tooltip="Look at the Achievements">Achievements</button>
-    <button id="new-game-btn" data-tooltip="Start a New Game">New Game</button>
-    <button id="load-game-btn" data-tooltip="Load your latest Save">Load Game</button>
+    <h1>Start Menu</h1>
+    <button class = "achievements-btn" id="achievements-btn" data-tooltip="Look at the Achievements">Achievements</button>
+    <button class = "new-game-btn" id="new-game-btn" data-tooltip="Start a New Game">New Game</button>
+    <button class = "load-game-btn" id="load-game-btn" data-tooltip="Load your latest Save">Load Game</button>
 </div>
     
 <div id="game-content" class="game-content">
-    <h1><u>Clicker</u></h1>
+    <h1>Clicker</h1>
     <div class="stats-container">
-        <h2><u>Stats</u></h2>
+        <h2>Stats</h2>
         <p>•Click Power: <span id="powerCounter"><br>50.00 ppc</span></p>
         <p>•Critical Clicks: <span id="criticalCounter"><br>0 Crits</span></p>
-        <p>•Crit Rarity: <span id="criticalFactor"><br>20 Factor</span></p>
+        <p>•Crit Rarity: <span id="criticalFactor"><br>100 Factor</span></p>
         <p>•Bonus: <span id="bonusCounter"><br>0.00%</span></p>
         <p>•Auto Speed: <span id="autoSpeed"><br>1000 ms</span></p>
         <p>•Total Clicks: <span id="totalclickCounter"><br>0 clicks</span></p>
@@ -47,7 +47,7 @@
     
     
     <div class="upgrade-container">
-        <h2><u>Upgrades</u></h2>
+        <h2>Upgrades</h2>
         <button id="upgradeBtn"><span style="color: #e06363">POWER</span> Upgrade (Cost: 300.00 points), (Level: <span id="upgradeLevel">0</span>/250)</button>
         <button id="bonusUpgradeBtn"><span style="color: #E06363FF">BONUS</span> Upgrade (Cost: 4.00k points), (Level: <span id="bonusLevel">0</span>/50)</button>
         <button id="autoUpgradeBtn"><span style="color: #E06363FF">AUTO SPEED</span> Upgrade (Cost: 100.00k points), (Level: <span id="autoClickerLevel">0</span>/18)</button>
@@ -56,21 +56,107 @@
     
     
     <div class="settings-container">
-        <h2><u>Settings</u></h2>
+        <h2>Settings</h2>
         <button id="resetBtn">Reset Game</button>
+        <button id="soundBtn">Sound Settings</button>
     </div>
+    
+    
+    
 
     <div id="achievements-container" class="achievements-container">
-        <h2><u>Achievements</u></h2>
+        <h2>Achievements</h2>
         <p id="achievement"></p>
     </div>
 
 </div>
 
+<div id="sound-settings" class="sound-settings" style="display: none;">
+    <div id="sound-settings-container" class="sound-settings-container">
+        <h2>Sound Settings</h2>
+        
+    <div class="sound-bar-container">     
+        <div id="main-sound-bar" class="slider">
+            <label class="slider">
+                 Main
+                <input type="range" id="main-volume-control" class="level volume-control" min="0" max="100" value="50">
+                <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                    <g>
+                        <path d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z" fill="currentColor" data-original="#000000"></path>
+                        <path d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z" fill="currentColor" data-original="#000000"></path>
+                    </g>
+                </svg>
+            </label>
+        </div>
+    </div>
+
+    <div class="sound-bar-container"> 
+        <div id="achievement-sound-bar" class="slider">
+            <label class="slider">
+                 Achievement
+                <input type="range" id="achievement-volume-control" class="level volume-control" min="0" max="100" value="50">
+                <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                    <g>
+                        <path d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z" fill="currentColor" data-original="#000000"></path>
+                        <path d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z" fill="currentColor" data-original="#000000"></path>
+                    </g>
+                </svg>
+            </label>
+        </div>
+    </div>
+    
+    <div class="sound-bar-container"> 
+        <div id="click-sound-bar" class="slider">
+            <label class="slider">
+                 Click
+                <input type="range" id="click-volume-control" class="level volume-control" min="0" max="100" value="50">
+                <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                    <g>
+                        <path d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z" fill="currentColor" data-original="#000000"></path>
+                        <path d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z" fill="currentColor" data-original="#000000"></path>
+                    </g>
+                </svg>
+            </label>
+        </div>
+    </div>
+
+    <div class="sound-bar-container"> 
+        <div id="crit-click-sound-bar" class="slider">
+            <label class="slider">
+                 Critical
+                <input type="range" id="crit-click-volume-control" class="level volume-control" min="0" max="100" value="50">
+                <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                    <g>
+                        <path d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z" fill="currentColor" data-original="#000000"></path>
+                        <path d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z" fill="currentColor" data-original="#000000"></path>
+                    </g>
+                </svg>
+            </label>
+        </div>
+    </div>
+
+    <div class="sound-bar-container"> 
+        <div id="upgrade-sound-bar" class="slider">
+            <label class="slider">
+                 Upgrade
+                <input type="range" id="upgrade-volume-control" class="level volume-control" min="0" max="100" value="50">
+                <svg class="volume" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve">
+                    <g>
+                        <path d="M18.36 19.36a1 1 0 0 1-.705-1.71C19.167 16.148 20 14.142 20 12s-.833-4.148-2.345-5.65a1 1 0 1 1 1.41-1.419C20.958 6.812 22 9.322 22 12s-1.042 5.188-2.935 7.069a.997.997 0 0 1-.705.291z" fill="currentColor" data-original="#000000"></path>
+                        <path d="M15.53 16.53a.999.999 0 0 1-.703-1.711C15.572 14.082 16 13.054 16 12s-.428-2.082-1.173-2.819a1 1 0 1 1 1.406-1.422A6 6 0 0 1 18 12a6 6 0 0 1-1.767 4.241.996.996 0 0 1-.703.289zM12 22a1 1 0 0 1-.707-.293L6.586 17H4c-1.103 0-2-.897-2-2V9c0-1.103.897-2 2-2h2.586l4.707-4.707A.998.998 0 0 1 13 3v18a1 1 0 0 1-1 1z" fill="currentColor" data-original="#000000"></path>
+                    </g>
+                </svg>
+            </label>
+        </div>
+    </div>
+    
+    </div>    
+    <button id="back1" class="back1"><img src="back.png" alt="Bildbeschreibung"></button> 
+</div>
 
 <div id="whole-achievement-container" class="whole-achievement-container" style="display: none;">
     <div id="achievements-container1" class="achievements-container">
-        <h2><u>Achievements</u></h2>
+        <h2>Achievements</h2>
         <div id="achievements-list">
             <!-- Hier werden die Achievements angezeigt -->
         </div>
@@ -81,5 +167,8 @@
 <script src="clicker.js"></script>
 <script src="achievements.js"></script>
 <script src="upgrades.js"></script>
+<script src="sound.js"></script>
+<script src="settings.js"></script>
+<script src="load_save.js"></script>
 </body>
 </html>

@@ -2,6 +2,12 @@ const achievementDisplay = document.getElementById('achievement');
 
 function checkAchievements() {
     const rawPoints = unformatNumber(points);
+    const level = upgradeLevel
+    const critlevel = criticalLevel
+    const bonuslevel = bonusLevel
+    const autolevel = autoClickerLevel
+    const purchased = autoClickerPurchased
+    const crit = critClicks
 
     if (rawPoints >= 50 && !achievementsUnlocked.includes('•First Click!')) {
         const achievement = '•First Click!';
@@ -35,8 +41,58 @@ function checkAchievements() {
         playAchievementSound();
     }
 
-    if (rawPoints >= 400000000000000 && !achievementsUnlocked.includes('•Richest Person!')) {
+    if (rawPoints >= 8999999999999999 && !achievementsUnlocked.includes('•Richest Person!')) {
         const achievement = '•Richest Person!';
+        achievementsUnlocked.push(achievement);
+        updateAchievementDisplay();
+        showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
+    }
+
+    if (level >= 1 && !achievementsUnlocked.includes('•First Power Up!')) {
+        const achievement = '•First Power Up!';
+        achievementsUnlocked.push(achievement);
+        updateAchievementDisplay();
+        showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
+    }
+    if (level >= 250 && !achievementsUnlocked.includes('•Maxed Power!')) {
+        const achievement = '•Maxed Power!';
+        achievementsUnlocked.push(achievement);
+        updateAchievementDisplay();
+        showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
+    }
+    if (bonuslevel >= 50 && !achievementsUnlocked.includes('•Many Bonuses!')) {
+        const achievement = '•Many Bonuses!';
+        achievementsUnlocked.push(achievement);
+        updateAchievementDisplay();
+        showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
+    }
+    if (critlevel >= 15 && !achievementsUnlocked.includes('•Crit after Crit!')) {
+        const achievement = '•Crit after Crit!';
+        achievementsUnlocked.push(achievement);
+        updateAchievementDisplay();
+        showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
+    }
+    if (autolevel >= 18 && !achievementsUnlocked.includes('•Fast & Furious!')) {
+        const achievement = '•Fast & Furious!';
+        achievementsUnlocked.push(achievement);
+        updateAchievementDisplay();
+        showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
+    }
+    if (crit >= 1 && !achievementsUnlocked.includes('•First Crit!')) {
+        const achievement = '•First Crit!';
+        achievementsUnlocked.push(achievement);
+        updateAchievementDisplay();
+        showNotification(`Achievement Unlocked: ${achievement}`);
+        playAchievementSound();
+    }
+    if (purchased === true && !achievementsUnlocked.includes('•Auto Clicker!')) {
+        const achievement = '•Auto Clicker!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         showNotification(`Achievement Unlocked: ${achievement}`);
@@ -50,8 +106,6 @@ function updateAchievementDisplay() {
         achievementDisplay.innerHTML = achievementsUnlocked.join('<br>');
     }
 }
-
-
 
 function unformatNumber(formattedNumber) {
     const suffixes = ["", "k", "M", "B", "T", "Q", "Qt", "Sx", "Sp", "Oc", "No", "Dc", "Un", "Du", "Tr", "Qu", "Qi", "Se", "St", "Ot", "Nv", "Vg", "Ct", "Ut", "Dt", "Tt", "QtT", "SxT", "SpT", "OcT", "NoT", "DcT", "UnT", "DuT", "TrT", "QuT", "QiT", "SeT", "StT", "OtT", "NvT", "VgT", "CtT", "UtT", "DtT", "TtT", "QtTT", "SxTT", "SpTT", "OcTT"];
@@ -87,11 +141,17 @@ function showAllAchievements() {
 
     // Durchlaufen Sie alle Achievements und fügen Sie sie dem Container hinzu
     const allAchievements = [
-        '•First Click!',
-        '•First 100k!',
-        '•Million points!',
-        '•Multi Millionaire!',
-        '•Richest Person!'
+        '• First Click!',
+        '• First 100k!',
+        '• Million points!',
+        '• Multi Millionaire!',
+        '• Richest Person!',
+        '• First Power Up!',
+        '• Maxed Power!',
+        '• Crit after Crit!',
+        '• Fast & Furious!',
+        '• First Crit!',
+        '• Auto Clicker!'
         // Fügen Sie hier weitere Achievements hinzu, wenn Sie möchten
     ];
 

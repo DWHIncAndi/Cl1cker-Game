@@ -2,12 +2,12 @@ let points = 0;
 let powerCounter = 50;
 let clickCounter = 0;
 let totalClicks = 0;
-let luckFactor = 1;
+let luckFactor = 100;
 let totalPoints = 0;
-let criticalFactor = 1;
+let criticalFactor = 100;
 let critClicks = 0;
-let rarityFactorCrit = 30;
-let rarityFactorLuck = 30;
+let rarityFactorCrit = 100;
+let rarityFactorLuck = 100;
 let minClicks = 1000;
 let autoClickerOn = false;
 let autoClickSpeed = 1000;
@@ -17,7 +17,7 @@ let autoClickCost = 50000;
 let autoClickerPurchased = false;
 let autoClickInterval;
 let autoClickerLevel = 0;
-let autoUpgradeCost = 100000;
+let autoUpgradeCost = 1;
 let bonusUpgradeCost = 4000;
 let bonusLevel = 0;
 let bonusMultiplier = 0.00;
@@ -44,12 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const startMenu = document.getElementById('start-menu');
     const gameContent = document.getElementById('game-content');
     const achievementsContainer = document.getElementById('whole-achievement-container');
+    const soundSettingsContainer = document.getElementById('sound-settings');
 
     // Funktion zum Anzeigen des Startmenüs
     function showStartMenu() {
         startMenu.style.display = 'block';
         gameContent.style.display = 'none';
         achievementsContainer.style.display = 'none';
+        soundSettingsContainer.style.display = 'none';
     }
 
     // Funktion zum Anzeigen des Spiels
@@ -57,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         startMenu.style.display = 'none';
         gameContent.style.display = 'block';
         achievementsContainer.style.display = 'none';
+        soundSettingsContainer.style.display = 'none';
     }
 
     // Funktion zum Anzeigen der Achievements
@@ -64,6 +67,14 @@ document.addEventListener('DOMContentLoaded', function() {
         startMenu.style.display = 'none';
         gameContent.style.display = 'none';
         achievementsContainer.style.display = 'block';
+        soundSettingsContainer.style.display = 'none';
+    }
+
+    function showSoundSettings() {
+        startMenu.style.display = 'none';
+        gameContent.style.display = 'none';
+        achievementsContainer.style.display = 'none';
+        soundSettingsContainer.style.display = 'block';
     }
 
     // Event Listener für jeden Button im Startmenü
@@ -86,111 +97,17 @@ document.addEventListener('DOMContentLoaded', function() {
         showStartMenu();
     });
 
+    document.getElementById('soundBtn').addEventListener('click', () => {
+        showSoundSettings();
+    });
+    
+    document.getElementById('back1').addEventListener('click', () => {
+        showGameContent();
+    });
+    
     // Standardmäßig das Startmenü anzeigen
     showStartMenu();
 });
-
-
-
-resetBtn.addEventListener('click', () => {
-    if (confirm('Are you sure you want to reset the game?')) {
-        resetGame();
-    }
-});
-
-function resetGame() {
-    // Setze alle Spielstandsdaten auf ihre Standardwerte zurück
-    points = 0;
-    powerCounter = 50;
-    clickCounter = 0;
-    totalClicks = 0;
-    luckFactor = 1;
-    totalPoints = 0;
-    criticalFactor = 1;
-    critClicks = 0;
-    rarityFactorCrit = 30;
-    rarityFactorLuck = 30;
-    minClicks = 1000;
-    autoClickerOn = false;
-    autoClickSpeed = 1000;
-    upgradeCost = 300;
-    upgradeLevel = 0;
-    autoClickCost = 50000;
-    autoClickerPurchased = false;
-    autoClickInterval;
-    autoClickerLevel = 0;
-    autoUpgradeCost = 100000;
-    bonusUpgradeCost = 4000;
-    bonusLevel = 0;
-    bonusMultiplier = 0.00;
-    criticalUpgradeCost = 650000;
-    criticalLevel = 0;
-    achievementsUnlocked = []; // Leeres Array für Achievements
-
-    updateDisplay();
-}
-
-function loadGame() {
-    points = parseInt(localStorage.getItem('points')) || points;
-    powerCounter = parseInt(localStorage.getItem('powerCounter')) || powerCounter;
-    clickCounter = parseInt(localStorage.getItem('clickCounter')) || clickCounter;
-    totalClicks = parseInt(localStorage.getItem('totalClicks')) || totalClicks;
-    luckFactor = parseFloat(localStorage.getItem('luckFactor')) || luckFactor;
-    totalPoints = parseInt(localStorage.getItem('totalPoints')) || totalPoints;
-    criticalFactor = parseFloat(localStorage.getItem('criticalFactor')) || criticalFactor;
-    critClicks = parseInt(localStorage.getItem('critClicks')) || critClicks;
-    rarityFactorCrit = parseInt(localStorage.getItem('rarityFactorCrit')) || rarityFactorCrit;
-    rarityFactorLuck = parseInt(localStorage.getItem('rarityFactorLuck')) || rarityFactorLuck;
-    minClicks = parseInt(localStorage.getItem('minClicks')) || minClicks;
-    autoClickerOn = localStorage.getItem('autoClickerOn') === 'true';
-    autoClickSpeed = parseInt(localStorage.getItem('autoClickSpeed')) || autoClickSpeed;
-    upgradeCost = parseInt(localStorage.getItem('upgradeCost')) || upgradeCost;
-    upgradeLevel = parseInt(localStorage.getItem('upgradeLevel')) || upgradeLevel;
-    autoClickCost = parseInt(localStorage.getItem('autoClickCost')) || autoClickCost;
-    autoClickerPurchased = localStorage.getItem('autoClickerPurchased') === 'true';
-    autoClickerLevel = parseInt(localStorage.getItem('autoClickerLevel')) || autoClickerLevel;
-    autoUpgradeCost = parseInt(localStorage.getItem('autoUpgradeCost')) || autoUpgradeCost;
-    bonusUpgradeCost = parseInt(localStorage.getItem('bonusUpgradeCost')) || bonusUpgradeCost;
-    bonusLevel = parseInt(localStorage.getItem('bonusLevel')) || bonusLevel;
-    bonusMultiplier = parseFloat(localStorage.getItem('bonusMultiplier')) || bonusMultiplier;
-    criticalUpgradeCost = parseInt(localStorage.getItem('criticalUpgradeCost')) || criticalUpgradeCost;
-    criticalLevel = parseInt(localStorage.getItem('criticalLevel')) || criticalLevel;
-    achievementsUnlocked = JSON.parse(localStorage.getItem('achievementsUnlocked')) || [];
-    console.log('Game data loaded from localStorage:', localStorage);
-
-    updateDisplay(); // Anzeige aktualisieren, nachdem das Spiel geladen wurde
-    updateAchievementDisplay();
-}
-
-function saveGame() {
-    localStorage.setItem('points', points);
-    localStorage.setItem('powerCounter', powerCounter);
-    localStorage.setItem('clickCounter', clickCounter);
-    localStorage.setItem('totalClicks', totalClicks);
-    localStorage.setItem('luckFactor', luckFactor);
-    localStorage.setItem('totalPoints', totalPoints);
-    localStorage.setItem('criticalFactor', criticalFactor);
-    localStorage.setItem('critClicks', critClicks);
-    localStorage.setItem('rarityFactorCrit', rarityFactorCrit);
-    localStorage.setItem('rarityFactorLuck', rarityFactorLuck);
-    localStorage.setItem('minClicks', minClicks);
-    localStorage.setItem('autoClickerOn', autoClickerOn);
-    localStorage.setItem('autoClickSpeed', autoClickSpeed);
-    localStorage.setItem('upgradeCost', upgradeCost);
-    localStorage.setItem('upgradeLevel', upgradeLevel);
-    localStorage.setItem('autoClickCost', autoClickCost);
-    localStorage.setItem('autoClickerPurchased', autoClickerPurchased);
-    localStorage.setItem('autoClickerLevel', autoClickerLevel);
-    localStorage.setItem('autoUpgradeCost', autoUpgradeCost);
-    localStorage.setItem('bonusUpgradeCost', bonusUpgradeCost);
-    localStorage.setItem('bonusLevel', bonusLevel);
-    localStorage.setItem('bonusMultiplier', bonusMultiplier);
-    localStorage.setItem('criticalUpgradeCost', criticalUpgradeCost);
-    localStorage.setItem('criticalLevel', criticalLevel);
-    localStorage.setItem('achievementsUnlocked', JSON.stringify(achievementsUnlocked));
-    console.log('Game data saved to localStorage:', localStorage);
-}
-
 
 function showNotification(message) {
     const notification = document.getElementById('notification');
@@ -219,39 +136,6 @@ function applyLuckBonus() {
     updateDisplay();
     playLuckSound();
     showNotification(`You just gained a Luck Bonus of ${formatNumber(bonus)}`);
-}
-
-// Beispiel für Click-Sound
-function playClickSound() {
-    const clickSound = document.getElementById('clickSound');
-    clickSound.currentTime = 0; // Setzt die Wiedergabezeit auf den Anfang, um den Sound bei jedem Klick abzuspielen
-    clickSound.play();
-}
-
-// Beispiel für Critical-Hit-Sound
-function playCriticalHitSound() {
-    const criticalHitSound = document.getElementById('criticalHitSound');
-    criticalHitSound.currentTime = 0;
-    criticalHitSound.play();
-}
-
-// Beispiel für Critical-Hit-Sound
-function playUpgradeSound() {
-    const playUpgradeSound = document.getElementById('upgradeSound');
-    playUpgradeSound.currentTime = 0;
-    playUpgradeSound.play();
-}
-
-function playLuckSound() {
-    const playLuckSound = document.getElementById('luckSound');
-    playLuckSound.currentTime = 0;
-    playLuckSound.play();
-}
-
-function playAchievementSound() {
-    const playAchievementSound = document.getElementById('achievementSound');
-    playAchievementSound.currentTime = 0;
-    playAchievementSound.play();
 }
 
 document.getElementById('clickBtn').addEventListener('click', () => {
@@ -341,5 +225,5 @@ function stopAutoClicker() {
     updateDisplay();
 }
 
-window.addEventListener('beforeunload', saveGame);
+window.addEventListener('beforeunload', saveGame());
 updateDisplay();
