@@ -132,6 +132,25 @@ body {
     transform: translateX(0); /* Einblenden durch Verschiebung zurück auf 0 */
 }
 
+.download {
+    position: absolute;
+    right: 96%;
+    top: 93%;
+    transform: translateX(96) translateY(93);
+    border: none;
+}
+
+#download img {
+    width: 20px; /* Anpassen der Breite des Bildes */
+    height: 20px; /* Anpassen der Höhe des Bildes */
+}
+
+#Version {
+    position: absolute;
+    left: 96%;
+    top: 93%;
+    transform: translateX(-96) translateY(93);
+}
 
 h1 {
     position: absolute;

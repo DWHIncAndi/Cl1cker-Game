@@ -1,29 +1,29 @@
-// noinspection JSIgnoredPromiseFromCall
-
 const { app, BrowserWindow } = require('electron');
 
 function createWindow() {
-    const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    fullscreen: true,
+    webPreferences: {
+      nodeIntegration: true
+    },
+    autoHideMenuBar: true
+  });
 
-    mainWindow.loadFile('index.html');
+  win.loadFile('index.html');
 }
 
 app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit();
-    }
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
 });
 
 app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
-    }
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
 });

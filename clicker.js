@@ -48,6 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const achievementsContainer = document.getElementById('whole-achievement-container');
     const gameAchievementsContainer = document.getElementById('game-achievement-container1');
     const soundSettingsContainer = document.getElementById('sound-settings');
+    const isFromApp = window.location.href.startsWith("file://"); // Überprüfe, ob die Seite direkt von einer Datei geöffnet wurde
+
+    if (!isFromApp) {
+        const downloadButton = document.getElementById('download-button');
+        downloadButton.style.display = 'none'; // Wenn nicht von der App geöffnet, zeige den Download-Button an
+    }
 
     // Funktion zum Anzeigen des Startmenüs
     function showStartMenu() {
