@@ -10,12 +10,12 @@ function resetGame() {
     powerCounter = 50;
     clickCounter = 0;
     totalClicks = 0;
-    luckFactor = 1;
+    luckFactor = 100;
     totalPoints = 0;
-    criticalFactor = 1;
+    criticalFactor = 100;
     critClicks = 0;
-    rarityFactorCrit = 30;
-    rarityFactorLuck = 30;
+    rarityFactorCrit = 100;
+    rarityFactorLuck = 100;
     minClicks = 1000;
     autoClickerOn = false;
     autoClickSpeed = 1000;
@@ -28,11 +28,12 @@ function resetGame() {
     autoUpgradeCost = 100000;
     bonusUpgradeCost = 4000;
     bonusLevel = 0;
-    bonusMultiplier = 0.00;
+    bonusMultiplier = 1.00;
     criticalUpgradeCost = 650000;
     criticalLevel = 0;
     achievementsUnlocked = []; // Leeres Array für Achievements
 
+    updateAchievementDisplay();
     updateDisplay();
     saveGame();
 }

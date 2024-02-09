@@ -162,6 +162,34 @@ function showAllAchievements() {
     });
 }
 
+// Funktion zum Anzeigen aller Achievements im Container
+function showAllAchievementsInGame() {
+    const achievementContainer = document.getElementById('achievements-list2');
+    achievementContainer.innerHTML = ''; // Zuerst den Container leeren
+
+    // Durchlaufen Sie alle Achievements und fügen Sie sie dem Container hinzu
+    const allAchievements = [
+        '• First Click!',
+        '• First 100k!',
+        '• Million points!',
+        '• Multi Millionaire!',
+        '• Richest Person!',
+        '• First Power Up!',
+        '• Maxed Power!',
+        '• Crit after Crit!',
+        '• Fast & Furious!',
+        '• First Crit!',
+        '• Auto Clicker!'
+        // Fügen Sie hier weitere Achievements hinzu, wenn Sie möchten
+    ];
+
+    allAchievements.forEach(achievement => {
+        const achievementElement = document.createElement('div');
+        achievementElement.textContent = achievement;
+        achievementContainer.appendChild(achievementElement);
+    });
+}
+
 
 
 

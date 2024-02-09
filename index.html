@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clicker App</title>
+    <title>Neon Clicker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -65,13 +65,23 @@
     
 
     <div id="achievements-container" class="achievements-container">
-        <h2>Achievements</h2>
+            <button id="clickable-text">Achievements</button>
         <p id="achievement"></p>
     </div>
 
 </div>
 
-<div id="sound-settings" class="sound-settings" style="display: none;">
+<div id="game-achievement-container1" class="game-achievement-container1">
+    <div id="game-achievements-container" class="game-achievements-container">
+        <h2>All Achievements</h2>
+        <div id="achievements-list2">
+            <!-- Hier werden die Achievements angezeigt -->
+        </div>
+    </div>
+    <button id="back2" class="back2"><img src="back.png" alt="Bildbeschreibung"></button> 
+</div>
+
+<div id="sound-settings" class="sound-settings">
     <div id="sound-settings-container" class="sound-settings-container">
         <h2>Sound Settings</h2>
         
@@ -154,9 +164,9 @@
     <button id="back1" class="back1"><img src="back.png" alt="Bildbeschreibung"></button> 
 </div>
 
-<div id="whole-achievement-container" class="whole-achievement-container" style="display: none;">
+<div id="whole-achievement-container" class="whole-achievement-container">
     <div id="achievements-container1" class="achievements-container">
-        <h2>Achievements</h2>
+        <h2>All Achievements</h2>
         <div id="achievements-list">
             <!-- Hier werden die Achievements angezeigt -->
         </div>

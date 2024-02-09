@@ -20,10 +20,16 @@ autoClickBtn.addEventListener('click', () => {
 upgradeBtn.addEventListener('click', () => {
     if (points >= upgradeCost && upgradeLevel < 250) {
         points -= upgradeCost;
-        powerCounter *= 2;
-        upgradeCost *= 6.5;
         upgradeLevel++;
         playUpgradeSound();
+
+        if (upgradeLevel === 6) {
+            powerCounter *= 6;
+        } else {
+            powerCounter *= 2;
+        }
+
+        upgradeCost *= 6.5;
     }
     else if (upgradeLevel >= 250) {
         showNotification('You have reached the maximum level for this upgrade!');
@@ -33,6 +39,7 @@ upgradeBtn.addEventListener('click', () => {
     updateDisplay();
 });
 
+
 autoUpgradeBtn.addEventListener('click', () => {
     if (!autoClickerPurchased){
         showNotification('You must buy the Auto clicker to use this upgrade!');
@@ -40,7 +47,7 @@ autoUpgradeBtn.addEventListener('click', () => {
     else if (points >= autoUpgradeCost && autoClickerLevel < 18) {
         points -= autoUpgradeCost;
         autoClickSpeed -= 50;
-        autoUpgradeCost *= 1;
+        autoUpgradeCost *= 12.5;
         autoClickerLevel++;
         clearInterval(autoClickInterval);
         startAutoClicker(); // Starte den Auto Clicker neu mit der aktualisierten Geschwindigkeit
