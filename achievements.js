@@ -9,8 +9,8 @@ function checkAchievements() {
     const purchased = autoClickerPurchased
     const crit = critClicks
 
-    if (rawPoints >= 50 && !achievementsUnlocked.includes('•First Click!')) {
-        const achievement = '•First Click!';
+    if (rawPoints >= 100 && !achievementsUnlocked.includes('•First 💯!')) {
+        const achievement = '•First 💯!';
         achievementsUnlocked.push(achievement);
         updateAchievementDisplay();
         showNotification(`Achievement Unlocked: ${achievement}`);

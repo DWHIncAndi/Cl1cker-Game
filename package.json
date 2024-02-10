@@ -1,6 +1,7 @@
 {
     "name": "neonclicker",
-    "version": "1.0.0",
+    "displayName": "Neon Clicker",
+    "version": "1.0.1",
     "main": "main.js",
     "scripts": {
       "start": "electron .",
@@ -12,7 +13,7 @@
       "electron-builder": "^24.9.1"
     },
     "build": {
-      "appId": "com.example.neonclikcer",
+      "appId": "com.dwhinc.neonclicker",
       "productName": "Neon Clicker",
       "win": {
         "icon": "icon.ico",
@@ -20,7 +21,7 @@
       }
     },
     "keywords": [],
-    "author": "dhwincandi",
+    "author": "",
     "license": "ISC",
-    "description": "Thank You for downloading this Game!"
+    "description": ""
   }
